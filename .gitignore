@@ -15,3 +15,4 @@
 
 .idea/
 vendor/
+coverage.out
