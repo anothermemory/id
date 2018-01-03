@@ -18,7 +18,6 @@ func TestGeneratorMock_Generate_SameValue(t *testing.T) {
 	assert.Equal(t, g.Generate(), g.Generate())
 }
 
-
 func ExampleNewMock() {
 	g := id.NewMock("123")
 	fmt.Println(g.Generate())

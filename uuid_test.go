@@ -22,4 +22,3 @@ func ExampleNewUUID() {
 	g := id.NewUUID()
 	fmt.Println(g.Generate())
 }
-
