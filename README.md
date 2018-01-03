@@ -1,7 +1,10 @@
 # Another Memory ID
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/anothermemory/id)](https://goreportcard.com/report/github.com/anothermemory/id)
-
+[![Go Doc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](http://godoc.org/github.com/anothermemory/id)
+[![Coveralls github](https://img.shields.io/coveralls/github/anothermemory/id.svg?style=flat-square)](https://coveralls.io/github/anothermemory/id)
+[![Release](https://img.shields.io/github/release/anothermemory/id.svg?style=flat-square)](https://github.com/anothermemory/id/releases/latest)
+[![license](https://img.shields.io/github/license/anothermemory/id.svg?style=flat-square)](LICENSE.md)
 
 This library contains interface and set of implementations for generating different identifiers. There are multiple
 implementations available. For production usage identifiers must be mostly unique. For testing purposes it's often much 
