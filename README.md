@@ -1,5 +1,8 @@
 # Another Memory ID
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/anothermemory/id)](https://goreportcard.com/report/github.com/anothermemory/id)
+
+
 This library contains interface and set of implementations for generating different identifiers. There are multiple
 implementations available. For production usage identifiers must be mostly unique. For testing purposes it's often much 
 easier to use mocked generator so it will generate the same id each time.
@@ -86,7 +89,7 @@ func Example() {
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for details on our code of conduct, and [CONTRIBUTING.md](CONTRIBUTING.md) for details on the process for submitting pull requests to us.
 
 ## Versioning
 
