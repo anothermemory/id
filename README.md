@@ -4,6 +4,22 @@ This library contains interface and set of implementations for generating differ
 implementations available. For production usage identifiers must be mostly unique. For testing purposes it's often much 
 easier to use mocked generator so it will generate the same id each time.
 
+Table of Contents
+=================
+
+* [Another Memory ID](#another-memory-id)
+  * [Getting Started](#getting-started)
+    * [Prerequisites](#prerequisites)
+    * [Installing](#installing)
+    * [See it in action](#see-it-in-action)
+      * [Mocked ID for testing](#mocked-id-for-testing)
+      * [Real ID for production](#real-id-for-production)
+  * [Built With](#built-with)
+  * [Contributing](#contributing)
+  * [Versioning](#versioning)
+  * [Authors](#authors)
+  * [License](#license)
+
 ## Getting Started
 
 ### Prerequisites
