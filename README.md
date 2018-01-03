@@ -30,7 +30,7 @@ The project is tested with go 1.9 but probably will work with earlier versions.
 
 Simple go get it
 
-```
+```bash
 go get github.com/anothermemory/id
 ```
 
@@ -38,7 +38,7 @@ go get github.com/anothermemory/id
 
 #### Mocked ID for testing
 
-```
+```go
 package id_test
 
 import (
@@ -60,7 +60,7 @@ func Example() {
 
 #### Real ID for production
 
-```
+```go
 package id_test
 
 import (
