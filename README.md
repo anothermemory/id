@@ -5,6 +5,7 @@
 [![Coveralls github](https://img.shields.io/coveralls/github/anothermemory/id.svg?style=flat-square)](https://coveralls.io/github/anothermemory/id)
 [![Release](https://img.shields.io/github/release/anothermemory/id.svg?style=flat-square)](https://github.com/anothermemory/id/releases/latest)
 [![license](https://img.shields.io/github/license/anothermemory/id.svg?style=flat-square)](LICENSE.md)
+[![Codacy grade](https://img.shields.io/codacy/grade/b37d4ed0bbab42a29a05d81829ca1dbb.svg?style=flat-square)](https://www.codacy.com/app/anothermemory/id)
 
 This library contains interface and set of implementations for generating different identifiers. There are multiple
 implementations available. For production usage identifiers must be mostly unique. For testing purposes it's often much 
