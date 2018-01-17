@@ -9,7 +9,7 @@ run:
   args:
     - -exc
     - |
-      cp code/. gopath/src/${MODULE}
+      git clone code gopath/src/${MODULE}
       export GOPATH=$(pwd)/gopath:${GOPATH}
       cd gopath/src/${MODULE}
       go version; echo
