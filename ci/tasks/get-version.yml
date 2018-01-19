@@ -6,6 +6,7 @@ image_resource:
   source:
     repository: am-registry:5000/anothermemory/git-version
     tag: develop
+    insecure_registries: [ "am-registry:5000" ]
 
 inputs:
 - name: code
