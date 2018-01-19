@@ -27,87 +27,94 @@ meta:
     private_key:  ((git_private_key))
     access_token: ((git_access_token))
 
+  docker:
+      registry: am-registry:5000
+      image_prefix: (( concat meta.docker.registry "/anothermemory/" ))
+
+  resource:
+    git:
+      type: git
+      check_every: 15s
+      source:
+        uri: (( grab meta.github.uri ))
+        private_key: (( grab meta.github.private_key ))
+        branch: master
+    dockerimage:
+      base:
+        type: docker-image
+        check_every: 15s
+        source:
+          tag: master
+          insecure_registries: [ (( grab meta.docker.registry )) ]
+      go-vendor:
+        .: (( inject meta.resource.dockerimage.base ))
+        source: { repository: (( concat meta.docker.image_prefix "go-vendor" )) }
+
+  task:
+    master:
+      image: docker-image-go-vendor-master
+      input_mapping: {code: git-master}
+      params:
+        MODULE: (( grab meta.go.module ))
+    develop:
+      image: docker-image-go-vendor-develop
+      input_mapping: {code: git-develop}
+      params:
+        MODULE: (( grab meta.go.module ))
+
+
 resources:
 - name: git-develop
-  type: git
-  check_every: 15s
-  source:
-    uri: (( grab meta.github.uri ))
-    branch: develop
-    private_key: (( grab meta.github.private_key ))
+  .: (( inject meta.resource.git ))
+  source: { branch: develop}
 
 - name: git-master
-  type: git
-  check_every: 15s
-  source:
-    uri: (( grab meta.github.uri ))
-    branch: master
-    private_key: (( grab meta.github.private_key ))
+  .: (( inject meta.resource.git ))
 
-- name: docker-image-vendor-develop
-  type: docker-image
-  check_every: 15s
-  source:
-    repository: (( grab meta.vendor.image ))
-    tag: (( grab meta.vendor.tag.develop ))
-    insecure_registries: [ "am-registry:5000" ]
+- name: docker-image-go-vendor-develop
+  .: (( inject meta.resource.dockerimage.go-vendor ))
+  source: { tag: develop}
 
-- name: docker-image-vendor-master
-  type: docker-image
-  check_every: 15s
-  source:
-    repository: (( grab meta.vendor.image ))
-    tag: (( grab meta.vendor.tag.master ))
-    insecure_registries: [ "am-registry:5000" ]
+- name: docker-image-go-vendor-master
+  .: (( inject meta.resource.dockerimage.go-vendor ))
 
 jobs:
 - name: "test-develop"
   serial: true
   plan:
   - aggregate:
-    - { get: docker-image-vendor-develop, trigger: true }
+    - { get: docker-image-go-vendor-develop, trigger: true }
     - { get: git-develop, trigger: true }
+  - task: get-version
+    .: (( inject meta.task.develop ))
+    file: git-develop/ci/tasks/get-version.yml
   - aggregate:
     - task: build
-      image: docker-image-vendor-develop
+      .: (( inject meta.task.develop ))
       file: git-develop/ci/tasks/build.yml
-      input_mapping: {code: git-develop}
-      params:
-        MODULE: (( grab meta.go.module ))
     - task: lint
-      image: docker-image-vendor-develop
+      .: (( inject meta.task.develop ))
       file: git-develop/ci/tasks/lint.yml
-      input_mapping: {code: git-develop}
-      params:
-        MODULE: (( grab meta.go.module ))
     - task: test
-      image: docker-image-vendor-develop
+      .: (( inject meta.task.develop ))
       file: git-develop/ci/tasks/test.yml
-      input_mapping: {code: git-develop}
-      params:
-        MODULE: (( grab meta.go.module ))
+
 - name: "test-master"
   serial: true
   plan:
   - aggregate:
-    - { get: docker-image-vendor-master, trigger: true }
+    - { get: docker-image-go-vendor-master, trigger: true }
     - { get: git-master, trigger: true }
+  - task: get-version
+    .: (( inject meta.task.master ))
+    file: git-develop/ci/tasks/get-version.yml
   - aggregate:
     - task: build
-      image: docker-image-vendor-master
+      .: (( inject meta.task.master ))
       file: git-master/ci/tasks/build.yml
-      input_mapping: {code: git-master}
-      params:
-        MODULE: (( grab meta.go.module ))
     - task: lint
-      image: docker-image-vendor-master
+      .: (( inject meta.task.master ))
       file: git-master/ci/tasks/lint.yml
-      input_mapping: {code: git-master}
-      params:
-        MODULE: (( grab meta.go.module ))
     - task: test
-      image: docker-image-vendor-master
+      .: (( inject meta.task.master ))
       file: git-master/ci/tasks/test.yml
-      input_mapping: {code: git-master}
-      params:
-        MODULE: (( grab meta.go.module ))

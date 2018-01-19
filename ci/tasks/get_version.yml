@@ -1,0 +1,23 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: am-registry:5000/anothermemory/git-version
+    tag: master
+
+inputs:
+- name: code
+
+outputs:
+- name: version
+
+run:
+  path: sh
+  args:
+    - -exc
+    - |
+      mono /usr/lib/GitVersion/GitVersion.exe /code -showvariable semver > /version/semver.txt
+      mono /usr/lib/GitVersion/GitVersion.exe /code > /version/raw.txt
+      cat /version/raw.txt
