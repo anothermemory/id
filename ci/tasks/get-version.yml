@@ -18,6 +18,6 @@ run:
   args:
     - -exc
     - |
-      mono /usr/lib/GitVersion/GitVersion.exe /code -showvariable semver > /version/semver.txt
-      mono /usr/lib/GitVersion/GitVersion.exe /code > /version/raw.txt
-      cat /version/raw.txt
+      mono /usr/lib/GitVersion/GitVersion.exe ./code -showvariable semver > ./version/semver.txt
+      mono /usr/lib/GitVersion/GitVersion.exe ./code > ./version/raw.txt
+      cat ./version/raw.txt
