@@ -2,18 +2,17 @@
 platform: linux
 
 inputs:
-- name: code
+- name: git-id
+  path: gopath/src/github.com/anothermemory/id
 
 run:
   path: sh
   args:
     - -exc
     - |
-      git clone code gopath/src/${MODULE}
-      export GOPATH=$(pwd)/gopath:${GOPATH}
-      cd gopath/src/${MODULE}
-      go version; echo
+      export GOPATH=$(pwd)/gopath:${GOPATH} && \
+      cd gopath/src/github.com/anothermemory/id && \
+      go version && \
+      zb build && \
+      zb lint -f --exclude=/usr/local/go && \
       go test -v ./...
-
-params:
-  MODULE: "dummy"
